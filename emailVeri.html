@@ -1,0 +1,31 @@
+<?php>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Verification</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://smtpjs.com/v3/smtp.js">
+    </script>
+</head>
+<body class="flex items-center justify-center h-screen bg-gray-100">
+    <div class="bg-white p-6 rounded-lg shadow-md w-96">
+        <h2 class="text-2xl font-semibold text-center mb-4">Email Verification</h2>
+        
+        <label class="block text-gray-700">Enter your email</label>
+        <input type="email" id="email" class="w-full p-2 border rounded mt-1" placeholder="example@email.com">
+        <button onclick="sendOTP()" class="w-full bg-blue-500 text-white p-2 rounded mt-3 hover:bg-blue-600">Send OTP</button>
+        
+        <label class="block text-gray-700 mt-4">Enter OTP</label>
+        <input type="text" id="otp" class="w-full p-2 border rounded mt-1" placeholder="Enter OTP">
+        <button onclick="verifyOTP()" class="w-full bg-green-500 text-white p-2 rounded mt-3 hover:bg-green-600">Verify</button>
+        
+        <p id="message" class="text-center mt-3 text-red-500"></p>
+    </div>
+
+    <script src="emailotp.js">
+    </script>
+</body>
+</html>
+<php>

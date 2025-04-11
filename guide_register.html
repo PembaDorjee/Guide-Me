@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guide Registration Form</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f4f8;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            width: 90vw;
+            max-width: 600px;
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+            box-sizing: border-box;
+            transition: box-shadow 0.3s ease;
+        }
+        .container:hover {
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+        .logo {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #4CAF50;
+            text-align: center;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-bottom: 25px;
+        }
+        .header h2 {
+            margin: 0;
+            text-align: left;
+            font-size: 1.6rem;
+            color: #333;
+        }
+        .profile-upload {
+            width: 120px;
+            height: 120px;
+            border: 3px dashed #4CAF50;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 28px;
+            color: #4CAF50;
+            cursor: pointer;
+            position: relative;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+        .profile-upload:hover {
+            background-color: #f0f4f8;
+            border-color: #388e3c;
+        }
+        .profile-upload input {
+            position: absolute;
+            opacity: 0;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+            color: #555;
+            font-size: 1.1rem;
+        }
+        input[type="text"], input[type="email"], input[type="file"], select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            color: #333;
+            background-color: #f9f9f9;
+            box-sizing: border-box;
+            transition: all 0.3s ease;
+        }
+        input[type="text"]:focus, input[type="email"]:focus, select:focus {
+            border-color: #4CAF50;
+            background-color: #fff;
+            box-shadow: 0 0 5px rgba(76, 175, 80, 0.2);
+        }
+        button {
+            width: 100%;
+            padding: 14px;
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+        button:hover {
+            background-color: #45a049;
+            transform: translateY(-2px);
+        }
+        button:active {
+            transform: translateY(1px);
+        }
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+            .header {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+            .profile-upload {
+                margin-top: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">Guide Me</div>
+        <div class="header">
+            <h2>Guide Registration Form</h2>
+            <label class="profile-upload">
+                +
+                <input type="file" id="profilePicture" name="profilePicture" accept="image/*" required>
+            </label>
+        </div>
+        <form id="guideRegistrationForm">
+            <div class="form-group">
+                <label for="fullName">Full Name</label>
+                <input type="text" id="fullName" name="fullName" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="phone">Phone Number</label>
+                <input type="text" id="phone" name="phone" required>
+            </div>
+            <div class="form-group">
+                <label for="experience">Experience (Years of guiding)</label>
+                <input type="text" id="experience" name="experience" required>
+            </div>
+            <div class="form-group">
+                <label for="languages">Languages Spoken</label>
+                <input type="text" id="languages" name="languages" required>
+            </div>
+            <div class="form-group">
+                <label for="specialization">Specialization</label>
+                <input type="text" id="specialization" name="specialization">
+            </div>
+            <div class="form-group">
+                <label for="citizenship">Citizenship Certificate Photo</label>
+                <input type="file" id="citizenship" name="citizenship" accept="image/*" required>
+            </div>
+            <div class="form-group">
+                <label for="license">Guide License Photo</label>
+                <input type="file" id="license" name="license" accept="image/*" required>
+            </div>
+            <button type="submit">Register</button>
+        </form>
+    </div>
+    <script>
+        document.getElementById('guideRegistrationForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Guide Registered Successfully!');
+        });
+    </script>
+</body>
+</html>
