@@ -35,7 +35,7 @@ try {
     // Check if we're using mysqli or PDO
     if (isset($conn)) {
         // Using mysqli
-        $stmt = $conn->prepare("UPDATE Client SET full_name = ?, email = ?, phone = ? WHERE client_id = ?");
+        $stmt = $conn->prepare("UPDATE clients SET full_name = ?, email = ?, phone = ? WHERE client_id = ?");
         $stmt->bind_param("sssi", $full_name, $email, $phone, $client_id);
         $success = $stmt->execute();
         
@@ -53,7 +53,7 @@ try {
         $stmt->close();
     } else if (isset($pdo)) {
         // Using PDO
-        $stmt = $pdo->prepare("UPDATE Client SET full_name = ?, email = ?, phone = ? WHERE client_id = ?");
+        $stmt = $pdo->prepare("UPDATE clients SET full_name = ?, email = ?, phone = ? WHERE client_id = ?");
         $success = $stmt->execute([$full_name, $email, $phone, $client_id]);
         
         if ($success) {
