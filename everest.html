@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Everest Base Camp Trek - Guide Me</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary: #15d455;
+      --secondary: #f3a42e;
+      --dark: #1E2A38;
+      --light: #f5f6f8;
+      --text: #333;
+      --text-light: #777;
+    }
+    
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: var(--light);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    header {
+      background-color: var(--dark);
+      color: white;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    .logo {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+    }
+
+    .logo i {
+      margin-right: 10px;
+      font-size: 1.5rem;
+    }
+
+    .logo span {
+      color: var(--secondary);
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 2rem auto;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 5px 25px rgba(0, 0, 0, 0.08);
+      overflow: hidden;
+    }
+
+    .trek-hero {
+      position: relative;
+      height: 450px;
+      overflow: hidden;
+    }
+
+    .trek-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .trek-hero:hover .trek-img {
+      transform: scale(1.03);
+    }
+
+    .trek-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+      padding: 2rem;
+      color: white;
+    }
+
+    .trek-overlay h1 {
+      margin: 0;
+      font-size: 2.5rem;
+      font-weight: 700;
+    }
+
+    .details {
+      padding: 2rem 3rem;
+    }
+
+    .meta-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      margin: 1.5rem 0;
+    }
+
+    .meta-card {
+      flex: 1;
+      min-width: 150px;
+      background: var(--light);
+      padding: 1rem;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    }
+
+    .meta-icon {
+      font-size: 1.5rem;
+      margin-right: 1rem;
+      color: var(--primary);
+    }
+
+    .meta-text h3 {
+      margin: 0;
+      font-size: 0.9rem;
+      color: var(--text-light);
+      font-weight: 500;
+    }
+
+    .meta-text p {
+      margin: 0.3rem 0 0;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--dark);
+    }
+
+    .section-title {
+      font-size: 1.5rem;
+      color: var(--dark);
+      margin: 2rem 0 1rem;
+      position: relative;
+      padding-bottom: 0.5rem;
+    }
+
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 50px;
+      height: 3px;
+      background: var(--primary);
+    }
+
+    .description {
+      margin-bottom: 2rem;
+    }
+
+    .highlights {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1rem;
+      margin: 1.5rem 0;
+    }
+
+    .highlight-card {
+      background: var(--light);
+      padding: 1.2rem;
+      border-radius: 8px;
+      display: flex;
+      align-items: flex-start;
+    }
+
+    .highlight-icon {
+      color: var(--secondary);
+      font-size: 1.2rem;
+      margin-right: 1rem;
+      margin-top: 0.2rem;
+    }
+
+    .itinerary {
+      margin: 2rem 0;
+    }
+
+    .day-card {
+      background: var(--light);
+      padding: 1.2rem;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+      border-left: 4px solid var(--primary);
+    }
+
+    .day-title {
+      font-weight: 600;
+      color: var(--dark);
+      margin-bottom: 0.5rem;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .day-content {
+      color: var(--text-light);
+    }
+
+    .action-buttons {
+      display: flex;
+      gap: 1rem;
+      margin: 2rem 0;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 0.8rem 1.5rem;
+      border-radius: 6px;
+      font-weight: 600;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+      border: 2px solid var(--primary);
+    }
+
+    .btn-primary:hover {
+      background: #13b74b;
+      border-color: #13b74b;
+    }
+
+    .btn-secondary {
+      background: white;
+      color: var(--primary);
+      border: 2px solid var(--primary);
+    }
+
+    .btn-secondary:hover {
+      background: var(--light);
+    }
+
+    .btn i {
+      margin-right: 8px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem;
+      margin-top: 3rem;
+      background-color: var(--dark);
+      color: white;
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 1rem;
+      margin: 2rem 0;
+    }
+
+    .gallery img {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 6px;
+      transition: transform 0.3s ease;
+      cursor: pointer;
+    }
+
+    .gallery img:hover {
+      transform: scale(1.05);
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        margin: 0;
+        border-radius: 0;
+      }
+      
+      .details {
+        padding: 1.5rem;
+      }
+      
+      .trek-hero {
+        height: 350px;
+      }
+      
+      .trek-overlay h1 {
+        font-size: 2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="logo">
+    <i class="fas fa-mountain"></i>
+    <div>Guide <span>Me</span></div>
+  </div>
+  <div><a href="treks.php" style="color: white; text-decoration: none;"><i class="fas fa-arrow-left"></i> Back to Treks</a></div>
+</header>
+
+<div class="container">
+  <div class="trek-hero">
+    <img class="trek-img" src="uploads/everest.jpg" alt="Everest Base Camp">
+    <div class="trek-overlay">
+      <h1>Everest Base Camp Trek</h1>
+    </div>
+  </div>
+  
+  <div class="details">
+    <div class="meta-container">
+      <div class="meta-card">
+        <div class="meta-icon"><i class="fas fa-clock"></i></div>
+        <div class="meta-text">
+          <h3>Duration</h3>
+          <p>12 days</p>
+        </div>
+      </div>
+      
+      <div class="meta-card">
+        <div class="meta-icon"><i class="fas fa-tachometer-alt"></i></div>
+        <div class="meta-text">
+          <h3>Difficulty</h3>
+          <p>Challenging</p>
+        </div>
+      </div>
+      
+      <div class="meta-card">
+        <div class="meta-icon"><i class="fas fa-mountain"></i></div>
+        <div class="meta-text">
+          <h3>Max Altitude</h3>
+          <p>5,364 meters</p>
+        </div>
+      </div>
+      
+      <div class="meta-card">
+        <div class="meta-icon"><i class="fas fa-map-marker-alt"></i></div>
+        <div class="meta-text">
+          <h3>Region</h3>
+          <p>Khumbu, Nepal</p>
+        </div>
+      </div>
+      
+      <div class="meta-card">
+        <div class="meta-icon"><i class="fas fa-dollar-sign"></i></div>
+        <div class="meta-text">
+          <h3>Starting From</h3>
+          <p>$1,500</p>
+        </div>
+      </div>
+    </div>
+
+    <h2 class="section-title">Overview</h2>
+    <div class="description">
+      <p>The Everest Base Camp Trek is one of the world's most iconic adventures, taking you through the heart of the Khumbu region to the foot of the world's highest mountain. This legendary journey offers breathtaking Himalayan panoramas, rich Sherpa culture, and a profound sense of accomplishment.</p>
+    </div>
+
+    <h2 class="section-title">Highlights</h2>
+    <div class="highlights">
+      <div class="highlight-card">
+        <div class="highlight-icon"><i class="fas fa-binoculars"></i></div>
+        <div>Spectacular views of Everest, Lhotse, Nuptse, and Ama Dablam</div>
+      </div>
+      <div class="highlight-card">
+        <div class="highlight-icon"><i class="fas fa-archway"></i></div>
+        <div>Explore ancient monasteries and Buddhist culture</div>
+      </div>
+      <div class="highlight-card">
+        <div class="highlight-icon"><i class="fas fa-hiking"></i></div>
+        <div>Challenge yourself on the world's most famous trek</div>
+      </div>
+      <div class="highlight-card">
+        <div class="highlight-icon"><i class="fas fa-home"></i></div>
+        <div>Stay in traditional teahouses with Sherpa hospitality</div>
+      </div>
+    </div>
+
+    <h2 class="section-title">Gallery</h2>
+    <div class="gallery">
+      <img src="uploads/e1.jpg" alt="Everest view">
+      <img src="uploads/e2.jpg" alt="Base camp">
+      <img src="uploads/e3.jpg.webp" alt="Khumbu valley">
+      <img src="uploads/e4.jpg" alt="Sherpa village">
+    </div>
+
+    <h2 class="section-title">Itinerary</h2>
+    <div class="itinerary">
+      <div class="day-card">
+        <div class="day-title">Day 1: Arrival in Kathmandu (1,400m)</div>
+        <div class="day-content">Arrive at Tribhuvan International Airport, transfer to hotel, trek briefing and preparation.</div>
+      </div>
+      <div class="day-card">
+        <div class="day-title">Day 2: Fly to Lukla (2,860m), trek to Phakding (2,610m)</div>
+        <div class="day-content">Spectacular mountain flight to Lukla, begin trek through Sherpa villages.</div>
+      </div>
+      <div class="day-card">
+        <div class="day-title">Day 3: Trek to Namche Bazaar (3,440m)</div>
+        <div class="day-content">Cross suspension bridges, enter Sagarmatha National Park, first Everest views.</div>
+      </div>
+      <div class="day-card">
+        <div class="day-title">Day 4: Acclimatization day in Namche</div>
+        <div class="day-content">Hike to Everest View Hotel, visit Sherpa Museum and local market.</div>
+      </div>
+      <div class="day-card">
+        <div class="day-title">Day 5-11: Trek to Base Camp and return</div>
+        <div class="day-content">Detailed itinerary available upon booking.</div>
+      </div>
+      <div class="day-card">
+        <div class="day-title">Day 12: Fly back to Kathmandu</div>
+        <div class="day-content">Celebration dinner and cultural show.</div>
+      </div>
+    </div>
+
+    <h2 class="section-title">What's Included</h2>
+    <div class="highlights">
+      <div class="highlight-card">
+        <div class="highlight-icon"><i class="fas fa-check"></i></div>
+        <div>All airport/hotel transfers</div>
+      </div>
+      <div class="highlight-card">
+        <div class="highlight-icon"><i class="fas fa-check"></i></div>
+        <div>Domestic flights (Kathmandu-Lukla-Kathmandu)</div>
+      </div>
+      <div class="highlight-card">
+        <div class="highlight-icon"><i class="fas fa-check"></i></div>
+        <div>Teahouse accommodation during trek</div>
+      </div>
+      <div class="highlight-card">
+        <div class="highlight-icon"><i class="fas fa-check"></i></div>
+        <div>Experienced English-speaking guide</div>
+      </div>
+      <div class="highlight-card">
+        <div class="highlight-icon"><i class="fas fa-check"></i></div>
+        <div>All necessary permits and fees</div>
+      </div>
+      <div class="highlight-card">
+        <div class="highlight-icon"><i class="fas fa-check"></i></div>
+        <div>Comprehensive medical kit</div>
+      </div>
+    </div>
+
+    <div class="action-buttons">
+      <a href="booking.php?trek=everest" class="btn btn-primary">
+        <i class="fas fa-calendar-check"></i> Book This Trek
+      </a>
+      <a href="treks.php" class="btn btn-secondary">
+        <i class="fas fa-mountain"></i> Explore More Treks
+      </a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <p>&copy; 2025 Guide Me | All Rights Reserved</p>
+  <div style="margin-top: 1rem;">
+    <a href="#" style="color: white; margin: 0 10px;"><i class="fab fa-facebook-f"></i></a>
+    <a href="#" style="color: white; margin: 0 10px;"><i class="fab fa-instagram"></i></a>
+    <a href="#" style="color: white; margin: 0 10px;"><i class="fab fa-twitter"></i></a>
+  </div>
+</footer>
+
+<script>
+  // Simple animation for gallery images
+  document.querySelectorAll('.gallery img').forEach(img => {
+    img.addEventListener('click', function() {
+      // This could be expanded to show a lightbox
+      alert('Showing full size image: ' + this.alt);
+    });
+  });
+
+  // Booking button functionality
+  document.querySelector('.btn-primary').addEventListener('click', function(e) {
+    // You could add additional booking logic here
+    console.log('Booking process initiated for Everest Base Camp Trek');
+  });
+</script>
+
+</body>
+</html>

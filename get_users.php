@@ -1,46 +1,67 @@
 <?php
-header("Access-Control-Allow-Origin: *");
-header("Content-Type: application/json");
+session_start();
+require_once '../database.php';
+header('Content-Type: application/json');
 
-include 'database.php'; // Include your existing database connection
-
-// Confirm the database connection is established
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+// Check if user is logged in and is admin
+if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
+    http_response_code(401);
+    echo json_encode(['error' => 'Unauthorized']);
+    exit();
 }
 
-// Fetch users from the 'users' table
-$sql = "SELECT id, name, email FROM users";
-$result = $conn->query($sql);
+// Get role from query parameter
+$role = isset($_GET['role']) ? $_GET['role'] : '';
 
-// Check if the query was successful
-if (!$result) {
-    die("Query failed: " . $conn->error);
-} else {
-    // If query was successful, output some debug info
-    echo "Query executed successfully<br>";
-}
-
-// Initialize an empty array to store users
-$users = [];
-
-// Check if there are any results
-if ($result->num_rows > 0) {
-    while ($row = $result->fetch_assoc()) {
-        $users[] = $row;
+try {
+    if ($role === 'guide') {
+        // For guides, only show active guides in the Our Guides tab
+        $query = "SELECT guide_id as id, full_name as name, email, phone, 
+                  avatar_path, experience, specialization, bio,
+                  created_at, status FROM Guide WHERE status = 'active'
+                  ORDER BY created_at DESC";
+        
+        $result = $conn->query($query);
+        
+        if (!$result) {
+            throw new Exception("Error executing query: " . $conn->error);
+        }
+        
+        $users = [];
+        while ($row = $result->fetch_assoc()) {
+            $users[] = $row;
+        }
+        
+        echo json_encode($users);
+    } else if ($role === 'client') {
+        // For clients, show all clients
+        $query = "SELECT client_id as id, full_name as name, email, phone, 
+                  avatar_path, created_at, status FROM Client
+                  ORDER BY created_at DESC";
+        
+        $result = $conn->query($query);
+        
+        if (!$result) {
+            throw new Exception("Error executing query: " . $conn->error);
+        }
+        
+        $users = [];
+        while ($row = $result->fetch_assoc()) {
+            $users[] = $row;
+        }
+        
+        echo json_encode($users);
+    } else {
+        // Invalid role
+        http_response_code(400);
+        echo json_encode(['error' => 'Invalid role']);
     }
-    // Output the users data for debugging
-    echo "<pre>";
-    print_r($users);
-    echo "</pre>";
-} else {
-    // If no users found, output this message
-    echo "No users found.";
+} catch (Exception $e) {
+    http_response_code(500);
+    echo json_encode(['error' => $e->getMessage()]);
+    // Log the error for debugging
+    error_log("Error in get_users.php: " . $e->getMessage());
 }
 
-// Return JSON response with user data (if available)
-echo json_encode($users);
-
-// Close connection
 $conn->close();
 ?>
